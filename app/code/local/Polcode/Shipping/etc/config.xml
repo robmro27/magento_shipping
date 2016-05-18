@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Polcode_Shipping>
+            <version>0.1.0</version>
+        </Polcode_Shipping>
+    </modules>
+    
+    <global>
+        <models>
+            <polcodeshipping>
+                <class>Polcode_Shipping_Model</class>
+            </polcodeshipping>
+        </models>
+        <helpers>
+            <polcodeshipping>
+                <class>Polcode_Shipping_Helper</class>
+            </polcodeshipping>
+        </helpers>
+        <blocks>
+            <polcodeshipping>
+                <class>Polcode_Shipping_Block</class>
+            </polcodeshipping>
+        </blocks>
+    </global>
+    
+    <default>
+        <carriers>
+            <polcodeshipping>
+                <active>0</active>
+                <show_delivery_date>0</show_delivery_date>
+                <model>polcodeshipping/carrier</model>
+                <title>Polcode Shipping Carrier</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <sallowspecific>1</sallowspecific>
+                <specificcountry>GB</specificcountry>
+                <showmethod>0</showmethod>
+                <sort_order>100</sort_order>
+            </polcodeshipping>
+        </carriers>
+    </default>
+    
+</config>
