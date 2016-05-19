@@ -1,1 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">   
+    <checkout_onepage_index>
+        <reference name="checkout.onepage.shipping_method.available">
+            <action method="setTemplate">
+                <template>polcodeshipping/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+            <block type="checkout/onepage_shipping_method_available" template="checkout/onepage/shipping_method/available.phtml" name="polcodeshipping.checkout.onepage.shipping_method.available"></block>
+            <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate">
+                <block type="polcodeshipping/onepage_deliverydate_dropdown" name="polcodeshipping.deliverydate.dropdown"></block>
+            </block>
+        </reference>        
+    </checkout_onepage_index>
+    <checkout_onepage_shippingmethod>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>polcodeshipping/checkout/onepage/shipping_method/available.phtml</template>
+            </action>
+            <block type="checkout/onepage_shipping_method_available" template="checkout/onepage/shipping_method/available.phtml" name="polcodeshipping.checkout.onepage.shipping_method.available"></block>
+            <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate">
+                <block type="polcodeshipping/onepage_deliverydate_dropdown" name="polcodeshipping.deliverydate.dropdown"></block>
+            </block>
+        </reference>
+    </checkout_onepage_shippingmethod>
+</layout>

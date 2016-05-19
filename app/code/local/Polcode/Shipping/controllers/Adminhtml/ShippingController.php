@@ -56,6 +56,11 @@ class Polcode_Shipping_Adminhtml_ShippingController
      
     public function saveAction()
     {
+        
+        /**
+         * TODO: validation
+         */
+        
         if ($postData = $this->getRequest()->getPost()) {
             
             $model = Mage::getSingleton('polcodeshipping/shipping');

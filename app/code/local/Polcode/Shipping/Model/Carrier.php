@@ -12,7 +12,7 @@ implements Mage_Shipping_Model_Carrier_Interface {
     
     public function getAllowedMethods()
     {
-        $methods = array('standard' => 'Standard', 'express' => 'Express', 'budget' =>'Budget');  
+        $methods = Mage::helper('polcodeshipping')->nextWeekDates();
         return $methods;
     }
     
@@ -28,14 +28,21 @@ implements Mage_Shipping_Model_Carrier_Interface {
  
         foreach($this->getAllowedMethods() as $methodName => $methodTitle)
         {            
+            
+            $weekdayName = date( "l", strtotime($methodTitle));
+            
             $method = Mage::getModel('shipping/rate_result_method');
-            $methodModel = Mage::getModel("polcodeshipping/carrier_method_{$methodName}");
+            
+            
+            
             $method->setCarrier($this->_code);
             $method->setMethod($methodName);
             $method->setCarrierTitle($this->getConfigData('title'));
-            $method->setMethodTitle($methodTitle);
-            $method->setPrice($methodModel->getPrice());
-            $method->setCost($methodModel->getCost());
+            $method->setMethodTitle($methodTitle . ' ' . $weekdayName);
+            
+            
+            $method->setPrice(10);
+            $method->setCost(25);
             $result->append($method);
         }
  
