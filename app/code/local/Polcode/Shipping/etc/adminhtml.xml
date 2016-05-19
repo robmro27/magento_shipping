@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    
+    <menu>
+        <sales>
+            <children>
+                <polcodeshipping_shipping translate="title" module="polcodeshipping">
+                    <title>Polcode Shipping</title>
+                    <action>adminhtml/shipping</action>
+                </polcodeshipping_shipping>
+            </children>
+        </sales>
+    </menu>
+     
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <polcodeshipping_shipping>
+                                <title>Polcode Shipping</title>
+                            </polcodeshipping_shipping>
+                        </children>
+                    </sales>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    
+</config>

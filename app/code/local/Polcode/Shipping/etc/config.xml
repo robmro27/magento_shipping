@@ -10,7 +10,16 @@
         <models>
             <polcodeshipping>
                 <class>Polcode_Shipping_Model</class>
+                <resourceModel>polcodeshipping_resource</resourceModel>
             </polcodeshipping>
+            <polcodeshipping_resource>
+                <class>Polcode_Shipping_Model_Resource</class>
+                <entities>
+                    <shipping>
+                        <table>polcode_shipping</table>
+                    </shipping>
+                </entities>
+            </polcodeshipping_resource>
         </models>
         <helpers>
             <polcodeshipping>
@@ -22,6 +31,25 @@
                 <class>Polcode_Shipping_Block</class>
             </polcodeshipping>
         </blocks>
+        
+        <resources>
+            <polcodeshipping_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </polcodeshipping_read>
+            <polcodeshipping_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </polcodeshipping_write>
+            <polcodeshipping_setup>
+                <setup>
+                    <module>Polcode_Shipping</module>
+                </setup>
+            </polcodeshipping_setup>
+        </resources>
+        
     </global>
     
     <default>
@@ -39,5 +67,37 @@
             </polcodeshipping>
         </carriers>
     </default>
+    
+    <frontend>
+        <layout>
+            <updates>
+                <polcodeshipping>
+                    <file>polcode/shipping.xml</file>
+                </polcodeshipping>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Polcode_Shipping before="Mage_Adminhtml">Polcode_Shipping_Adminhtml</Polcode_Shipping>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <polcodeshipping>
+                    <file>polcode/shipping.xml</file>
+                </polcodeshipping>
+            </updates>
+        </layout>
+    </adminhtml>
     
 </config>
