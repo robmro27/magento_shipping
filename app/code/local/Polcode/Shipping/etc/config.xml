@@ -76,6 +76,15 @@
                 </polcodeshipping>
             </updates>
         </layout>
+        <routers>
+            <deliverytime>
+                <use>standard</use>
+                <args>
+                    <module>Polcode_Shipping</module>
+                    <frontName>deliverytime</frontName>
+                </args>
+            </deliverytime>
+        </routers>
     </frontend>
     
     <admin>

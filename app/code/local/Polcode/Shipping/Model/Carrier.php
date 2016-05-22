@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Description of Polcode_Shipping_Model_Carrier
  *
@@ -12,13 +13,13 @@ implements Mage_Shipping_Model_Carrier_Interface {
     
     public function getAllowedMethods()
     {
-        $methods = Mage::helper('polcodeshipping')->nextWeekDates();
+        $methods = array('standard' => 'Standard');  
         return $methods;
     }
     
     
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
-    {
+    {     
         if (!$this->getConfigFlag('active')) 
         {
             return false;
@@ -27,9 +28,11 @@ implements Mage_Shipping_Model_Carrier_Interface {
         $result = Mage::getModel('shipping/rate_result');
  
         foreach($this->getAllowedMethods() as $methodName => $methodTitle)
-        {            
+        {      
             
-            $weekdayName = date( "l", strtotime($methodTitle));
+            
+            $calculatedPrice = rand(9, 23);
+            $calculatedCost  = 10;
             
             $method = Mage::getModel('shipping/rate_result_method');
             
@@ -38,11 +41,11 @@ implements Mage_Shipping_Model_Carrier_Interface {
             $method->setCarrier($this->_code);
             $method->setMethod($methodName);
             $method->setCarrierTitle($this->getConfigData('title'));
-            $method->setMethodTitle($methodTitle . ' ' . $weekdayName);
+            $method->setMethodTitle($methodTitle);
             
             
-            $method->setPrice(10);
-            $method->setCost(25);
+            $method->setPrice($calculatedPrice);
+            $method->setCost($calculatedCost);
             $result->append($method);
         }
  
