@@ -7,6 +7,13 @@
     </modules>
     
     <global>
+        <controllers>
+            <Mage_Checkout>
+                <rewrite>
+                    <onepage>Polcode_Shipping_Onepage</onepage>
+                </rewrite>
+            </Mage_Checkout>
+        </controllers>
         <models>
             <polcodeshipping>
                 <class>Polcode_Shipping_Model</class>
@@ -84,6 +91,13 @@
                     <frontName>deliverytime</frontName>
                 </args>
             </deliverytime>
+            <checkout>
+               <args>
+                    <modules>
+                        <Polcode_Shipping before="Mage_Checkout">Polcode_Shipping</Polcode_Shipping>
+                    </modules>
+               </args>
+            </checkout>
         </routers>
     </frontend>
     

@@ -1,44 +1,66 @@
-
-<label for="deliverydate">Delivery date</label>
-<input id="deliverydate" type="radio" name="deliverydate" value="<?php echo $this->getPrice();?>"/>
-
-<div class="buttons-set" id="shipping-method-buttons-container">
-    <p class="back-link"><a href="#" onclick="checkout.back(); return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-    <button type="button" class="button" onclick="shipping.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
-    <span id="shipping-method-please-wait" class="please-wait" style="display:none;">
-        <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
-    </span>
+<div id="deliveryDateCalendar">
+    <table style="border-spacing: 10px;border-collapse: separate;">
+        <tr>
+            <?php foreach ($this->getNextWeekDays() as $day) { ?>
+            <th style="padding: 10px;"><?php echo date('l', strtotime($day)) ?>
+                <br/><small>(<?php echo $day ?>)</small>
+            </th>
+            <?php } ?>
+        </tr>
+        <tr>
+            <?php foreach ($this->getNextWeekDays() as $day) { ?>
+            <td style="padding: 10px;">
+                <?php foreach ( $this->getIntervalsByDays()[date('w', strtotime($day))] as $interval ) { ?>
+                    <small><?php echo $interval['hour_start'] ?> - <?php echo $interval['hour_end'] ?></small><br />
+                    <input type="radio" name="deliveryInterval" value="<?php echo $interval['id']?>"/>    
+                    <small><?php echo Mage::helper('core')->currency($interval['cost'], true, false); ?></small><br />
+                <?php } ?>
+            </td>
+            <?php } ?>
+        </tr>
+        
+    </table>
 </div>
+
+<span id="delivery-calendar-please-wait" class="please-wait" style="display:none;">
+    <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" 
+         alt="<?php echo Mage::helper('polcodeshipping')->quoteEscape($this->__('Recalculate Shipping ...')) ?>" title="<?php echo Mage::helper('polcodeshipping')->quoteEscape($this->__('Recalculate Shipping ...')) ?>" class="v-middle" /> <?php echo $this->__('Recalculate Shipping ...') ?>
+</span>
+
 
 <script type="text/javascript">
 //<![CDATA[
-var radioSelectorString = 'input[type="radio"][name="deliverydate"]';
-$$(radioSelectorString).each(function(el){
-    Event.observe(el, 'click', function(){
-        if (el.checked == true){
-            
-        }
-            var price = el.getValue();
- 
-            $$(radioSelectorString).each( function(el){ el.disable(); } );
- 
-            new Ajax.Request('<?php echo $this->getPostUrl() ?>', {
-                method: 'post',
-                parameters: { 'price': price },
-                onSuccess: function(transport){ 
-                    //var json = transport.responseText.evalJSON();
-                    
-                    $$(radioSelectorString).each( function(el){ el.enable(); } );
-                    shipping.save();    
-                            
-                        
-                    
-                },
-                onFailure: function(){ 
-                    $$(radioSelectorString).each( function(el){ el.enable(); } );
-                }
-            });            
+    var radioSelectorString = 'input[type="radio"][name="deliveryInterval"]';
+    var deliveryCalendarLoader = 'delivery-calendar-please-wait';
+
+    $$(radioSelectorString).each(function(el){
+        Event.observe(el, 'click', function(){
+            if (el.checked == true){
+
+                var interval = el.getValue();
+
+                $$(radioSelectorString).each( function(el){ el.disable(); } );
+                Element.show(deliveryCalendarLoader);
+
+
+                new Ajax.Request('<?php echo $this->getPostUrl() ?>', {
+                    method: 'post',
+                    parameters: { 'interval': interval },
+                    onSuccess: function(transport){ 
+
+                        //var json = transport.responseText.evalJSON();
+                        shipping.nextStep(transport);  
+                        $$(radioSelectorString).each( function(el){ el.enable(); } );
+                        Element.hide(deliveryCalendarLoader);        
+
+                    },
+                    onFailure: function(){ 
+                        $$(radioSelectorString).each( function(el){ el.enable(); } );
+                    }
+                }); 
+
+            }
+        });
     });
-});
 //]]>
 </script>

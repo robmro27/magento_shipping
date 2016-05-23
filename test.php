@@ -3,43 +3,19 @@
 include 'app/Mage.php';
 Mage::app();
 
-$polcodeShipping = Mage::getModel('polcodeshipping/shipping');
-$shippingIntervals = array();
-foreach ( $polcodeShipping->getCollection() as $shippingSettings ) {
-    $shippingIntervals[$shippingSettings->getData()['weekday']][] = $shippingSettings->getData();
-}
+$shippingIntervals = Mage::getModel('polcodeshipping/shipping');
 
-$methods = array();
 
-$weekdays = Mage::helper('polcodeshipping')->nextWeekDates();
-
-foreach ($weekdays as $key => $val) {
-    
-    $weekDayKey = date('w', strtotime($val));
-    if (array_key_exists($weekDayKey , $shippingIntervals)) {
-        foreach ( $shippingIntervals[$weekDayKey] as $interval ) {
-            $interval['date'] = $val;
-            $methods[] = $interval;
-        }
-    } else {
-        $methods[] = $val;
-    }
-    
-    
-    //$weekdays[date('w', strtotime($val))] = $val; 
-    
-    
+$indexedByDay = [];
+foreach ($shippingIntervals->getCollection()->getData() as $interval) 
+{
+    $indexedByDay[$interval['weekday']][] = $interval;
 }
 
 
 
 echo '<pre>';
-print_r($shippingIntervals);
+print_r($indexedByDay);
 echo '</pre>';
-
-echo '<pre>';
-print_r($methods);
-echo '</pre>';
-
 die;
 

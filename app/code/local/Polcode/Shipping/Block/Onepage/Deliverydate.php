@@ -8,12 +8,17 @@
 class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_Onepage_Abstract
 {
     
-    private $price = 0;
+    private $nextWeekDays;
+    private $intervalsByDays;
     
-    protected function _prepareLayout() {
+    protected function _prepareLayout() 
+    {
+        $this->nextWeekDays = Mage::helper('polcodeshipping')->nextWeekDates();
         
-        $this->price = 10;
-        
+        $shippingIntervals = Mage::getModel('polcodeshipping/shipping');
+        foreach ($shippingIntervals->getCollection()->getData() as $interval) {
+            $this->intervalsByDays[$interval['weekday']][] = $interval;
+        }
     }
     
     public function __construct()
@@ -25,12 +30,13 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
     {
         return Mage::getUrl('checkout/onepage/deliverydate', array('_secure'=>true)); 
     }
-    
-    public function getPrice() {
-        return $this->price;
+
+    public function getNextWeekDays() {
+        return $this->nextWeekDays;
     }
-
-
     
+    public function getIntervalsByDays() {
+        return $this->intervalsByDays;
+    }
     
 }
