@@ -1,4 +1,9 @@
-<div id="deliveryDateCalendar">
+<?php
+     $cart = Mage::getModel('checkout/cart')->getQuote();
+     $polcodeShippingId =  $cart->getShippingAddress()->getPolcodeShippingId();
+?>
+
+<div>
     <table style="border-spacing: 10px;border-collapse: separate;">
         <tr>
             <?php foreach ($this->getNextWeekDays() as $day) { ?>
@@ -12,7 +17,7 @@
             <td style="padding: 10px;">
                 <?php foreach ( $this->getIntervalsByDays()[date('w', strtotime($day))] as $interval ) { ?>
                     <small><?php echo $interval['hour_start'] ?> - <?php echo $interval['hour_end'] ?></small><br />
-                    <input type="radio" name="deliveryInterval" value="<?php echo $interval['id']?>"/>    
+                <input <?php if ( $polcodeShippingId == $interval['id'] ) { ?> checked="checked" <?php } ?> type="radio" name="polcode_shipping_id" value="<?php echo $interval['id']?>"/>    
                     <small><?php echo Mage::helper('core')->currency($interval['cost'], true, false); ?></small><br />
                 <?php } ?>
             </td>
@@ -30,7 +35,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-    var radioSelectorString = 'input[type="radio"][name="deliveryInterval"]';
+    var radioSelectorString = 'input[type="radio"][name="polcode_shipping_id"]';
     var deliveryCalendarLoader = 'delivery-calendar-please-wait';
 
     $$(radioSelectorString).each(function(el){

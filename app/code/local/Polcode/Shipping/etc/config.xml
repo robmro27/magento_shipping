@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Polcode_Shipping>
-            <version>0.1.0</version>
+            <version>0.2.0</version>
         </Polcode_Shipping>
     </modules>
     
@@ -27,6 +27,11 @@
                     </shipping>
                 </entities>
             </polcodeshipping_resource>
+            <checkout>
+                <rewrite>
+                    <type_onepage>Polcode_Shipping_Model_Checkout_Onepage</type_onepage>
+                </rewrite>
+            </checkout>
         </models>
         <helpers>
             <polcodeshipping>
@@ -54,9 +59,38 @@
                 <setup>
                     <module>Polcode_Shipping</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </polcodeshipping_setup>
         </resources>
-        
+        <events>
+            <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <save_date>
+                        <type>singleton</type>
+                        <class>polcodeshipping/observer</class>
+                        <method>saveDeliveryDatetime</method>
+                    </save_date>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+            <sales_convert_order_to_quote>
+                <observers>
+                    <copy_delivery_date>
+                        <type>singleton</type>
+                        <class>polcodeshipping/observer</class>
+                        <method>copyPolcodeShippingIdToQuote</method>                        
+                    </copy_delivery_date>
+                </observers>
+            </sales_convert_order_to_quote>
+        </events>
+        <fieldsets>
+            <sales_convert_quote_address>
+                <polcode_shipping_id>
+                    <to_order>*</to_order>
+                </polcode_shipping_id>
+            </sales_convert_quote_address>
+        </fieldsets>
     </global>
     
     <default>

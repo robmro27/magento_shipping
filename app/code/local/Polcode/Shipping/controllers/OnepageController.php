@@ -4,9 +4,12 @@ class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
 {   
     public function deliverydateAction()
     {
-        
+               
         $cart = Mage::getModel('checkout/cart')->getQuote();
-        $address = $cart->getShippingAddress()->setCollectShippingRates(true);
+        $cart->getShippingAddress()
+             ->setCollectShippingRates(true)
+             ->setPolcodeShipping(true)
+             ->setPolcodeShippingId($this->getRequest()->getParams('polcode_shipping_id')['interval']);
         
         if (!isset($result['error'])) {
             $result['goto_section'] = 'shipping_method';
