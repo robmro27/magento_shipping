@@ -15,10 +15,16 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
     {
         $this->nextWeekDays = Mage::helper('polcodeshipping')->nextWeekDates();
         
+        
+        
+        
         $shippingIntervals = Mage::getModel('polcodeshipping/shipping');
         foreach ($shippingIntervals->getCollection()->getData() as $interval) {
             $this->intervalsByDays[$interval['weekday']][] = $interval;
         }
+        
+        
+        
     }
     
     public function __construct()

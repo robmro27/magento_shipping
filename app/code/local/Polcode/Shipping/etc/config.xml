@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Polcode_Shipping>
-            <version>0.2.0</version>
+            <version>0.3.0</version>
         </Polcode_Shipping>
     </modules>
     
@@ -42,6 +42,11 @@
             <polcodeshipping>
                 <class>Polcode_Shipping_Block</class>
             </polcodeshipping>
+            <checkout>
+                <rewrite>
+                    <onepage_progress>Polcode_Shipping_Block_Onepage_Progress</onepage_progress>
+                </rewrite>
+            </checkout>
         </blocks>
         
         <resources>
@@ -89,6 +94,9 @@
                 <polcode_shipping_id>
                     <to_order>*</to_order>
                 </polcode_shipping_id>
+                <polcode_delivery_date>
+                    <to_order>*</to_order>
+                </polcode_delivery_date>
             </sales_convert_quote_address>
         </fieldsets>
     </global>

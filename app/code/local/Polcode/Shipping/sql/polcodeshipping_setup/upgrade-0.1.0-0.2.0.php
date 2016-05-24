@@ -20,10 +20,6 @@ $installer->getConnection()
         'NULLABLE'  => true,
         'COMMENT'   => 'Shipment Delivery Date Time'
     ));
-
-
-
-
  
 $installer->endSetup();
 

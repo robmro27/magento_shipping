@@ -1,6 +1,7 @@
 <?php
      $cart = Mage::getModel('checkout/cart')->getQuote();
      $polcodeShippingId =  $cart->getShippingAddress()->getPolcodeShippingId();
+     $polcodeDeliveryDate =  $cart->getShippingAddress()->getPolcodeDeliveryDate();
 ?>
 
 <div>
@@ -13,11 +14,12 @@
             <?php } ?>
         </tr>
         <tr>
+            <input type="text" name="polcode_delivery_date" value="<?php echo $polcodeDeliveryDate ?>"/>
             <?php foreach ($this->getNextWeekDays() as $day) { ?>
             <td style="padding: 10px;">
                 <?php foreach ( $this->getIntervalsByDays()[date('w', strtotime($day))] as $interval ) { ?>
                     <small><?php echo $interval['hour_start'] ?> - <?php echo $interval['hour_end'] ?></small><br />
-                <input <?php if ( $polcodeShippingId == $interval['id'] ) { ?> checked="checked" <?php } ?> type="radio" name="polcode_shipping_id" value="<?php echo $interval['id']?>"/>    
+                    <input <?php if ( $polcodeShippingId == $interval['id'] ) { ?> checked="checked" <?php } ?> type="radio" name="polcode_shipping_id" value="<?php echo $interval['id']?>"/>    
                     <small><?php echo Mage::helper('core')->currency($interval['cost'], true, false); ?></small><br />
                 <?php } ?>
             </td>

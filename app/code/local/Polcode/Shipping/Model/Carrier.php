@@ -23,14 +23,30 @@ implements Mage_Shipping_Model_Carrier_Interface {
         if (!$this->getConfigFlag('active'))  {
             return false;
         } 
+        
+        // shipping model
+        $shippingModel = Mage::getModel('polcodeshipping/shipping');
+        
+        // set default 
+        $datetime = new DateTime();
+        $datetime->modify('+1 day');
+        $tomorrow =  $datetime->format('N');
+        $default = $shippingModel->getCollection()->addFieldToFilter('weekday', $tomorrow)
+                                                  ->getFirstItem();
+        
+        $weekdayName = Mage::helper('polcodeshipping')->weekdays()[$default['weekday']];
+        $defaultDate = date('Y-m-d', strtotime("next " . $weekdayName));
+        
        
         $cart = Mage::getModel('checkout/cart')->getQuote();
-        if ( !$cart->getShippingAddress()->getPolcodeShippingId() )  {
-            $cart->getShippingAddress()->setPolcodeShippingId(13);
+        if ( !$cart->getShippingAddress()->getPolcodeShippingId() ||
+             !$cart->getShippingAddress()->getPolcodeDeliveryDate())  {
+            $cart->getShippingAddress()->setPolcodeShippingId($default->getId());
+            $cart->getShippingAddress()->setPolcodeDeliveryDate($defaultDate);
         }
         
         $shippingId = $cart->getShippingAddress()->getPolcodeShippingId();
-        $shippingModel = Mage::getModel('polcodeshipping/shipping')->load($shippingId);
+        $shippingModel = $shippingModel->load($shippingId);
         
         $result = Mage::getModel('shipping/rate_result');
         foreach($this->getAllowedMethods() as $methodName => $methodTitle) {      

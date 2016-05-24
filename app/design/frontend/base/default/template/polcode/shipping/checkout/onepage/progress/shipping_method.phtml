@@ -35,6 +35,13 @@
     <?php echo $this->getShippingDescription() ?>
     
     
+    <?php if ($this->displayDeliveryDatetime()) : ?>
+    <p>
+    <?php echo $this->__('Delivery Date & Time') ?>: 
+    <?php echo $this->escapeHtml($this->getDisplayDeliveryDatetime()); ?>
+    </p>
+    <?php endif; ?>
+    
 
     <?php $_excl = $this->getShippingPriceExclTax(); ?>
     <?php $_incl = $this->getShippingPriceInclTax(); ?>
