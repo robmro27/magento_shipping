@@ -7,7 +7,7 @@
 <div>
     <table style="border-spacing: 10px;border-collapse: separate;">
         <tr>
-            <?php foreach ($this->getNextWeekDays() as $day) { ?>
+            <?php foreach ($this->getNextWeekDates() as $day) { ?>
             <th style="padding: 10px;"><?php echo date('l', strtotime($day)) ?>
                 <br/><small>(<?php echo $day ?>)</small>
             </th>
@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <input type="text" name="polcode_delivery_date" value="<?php echo $polcodeDeliveryDate ?>"/>
-            <?php foreach ($this->getNextWeekDays() as $day) { ?>
+            <?php foreach ($this->getNextWeekDates() as $day) { ?>
             <td style="padding: 10px;">
                 <?php foreach ( $this->getIntervalsByDays()[date('w', strtotime($day))] as $interval ) { ?>
                     <small><?php echo $interval['hour_start'] ?> - <?php echo $interval['hour_end'] ?></small><br />

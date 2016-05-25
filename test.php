@@ -3,26 +3,36 @@
 include 'app/Mage.php';
 Mage::app();
 
+$block = Mage::app()->getLayout()->createBlock('polcodeshipping/onepage_deliverydate');
+
+echo '<pre>';
+var_dump($block->getOrdersCountForNextWeekInterval(12));
+echo '</pre>';
+die;
+
+
 $nextWeekdays = Mage::helper('polcodeshipping')->nextWeekDates();
 
 $ordersCollection = Mage::getModel('sales/order')
         ->getCollection()
-        ->addFieldToFilter('mainpolcode_delivery_date', array('from' => reset($nextWeekdays),'date' => true,))
+        ->addFieldToFilter('polcode_delivery_date', array('from' => reset($nextWeekdays),'date' => true,))
         ->addFieldToFilter('polcode_delivery_date', array('to' => end($nextWeekdays), 'date' => true,))
-        ->addFieldToFilter('polcode_shipping_id', array('notnull' => true))
-        ;
+        ->addFieldToFilter('polcode_shipping_id', array('notnull' => true));
 
+$ordersCollection
+        ->getSelect()
+        ->reset(Zend_Db_Select::COLUMNS)
+        ->columns('`main_table`.polcode_delivery_date,
+                   `main_table`.polcode_shipping_id,
+                   count(*) as qty')
+        ->group('polcode_shipping_id');
 
-echo '<pre>';
-print_r($ordersCollection
-            ->getSelect()
-            ->columns('count(*) as qty')
-            ->group('polcode_shipping_id'));
-echo '</pre>';
 
 foreach ($ordersCollection as $result) {
     
-    
+    echo '<pre>';
+    print_r($result->getData());
+    echo '</pre>';
     
 }
 
