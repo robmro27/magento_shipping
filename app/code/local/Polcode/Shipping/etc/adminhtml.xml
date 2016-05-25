@@ -9,6 +9,12 @@
                     <action>adminhtml/shipping</action>
                 </polcodeshipping_shipping>
             </children>
+            <children>
+                <polcodeshipping_shipping_excludes translate="title" module="polcodeshipping">
+                    <title>Polcode Shiping Excludes</title>
+                    <action>adminhtml/shippingexcludes</action>
+                </polcodeshipping_shipping_excludes>
+            </children>
         </sales>
     </menu>
      
@@ -21,6 +27,11 @@
                             <polcodeshipping_shipping>
                                 <title>Polcode Shipping</title>
                             </polcodeshipping_shipping>
+                        </children>
+                        <children>
+                            <polcodeshipping_shipping_excludes>
+                                <title>Polcode Shipping Excludes</title>
+                            </polcodeshipping_shipping_excludes>
                         </children>
                     </sales>
                 </children>

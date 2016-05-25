@@ -5,4 +5,9 @@
             <block type="polcodeshipping/adminhtml_shipping" name="polcodeshipping_shipping" />
         </reference>
     </adminhtml_shipping_index>
+    <adminhtml_shippingexcludes_index>
+        <reference name="content">
+            <block type="polcodeshipping/adminhtml_shippingexcludes" name="polcodeshipping_shippingexcludes" />
+        </reference>
+    </adminhtml_shippingexcludes_index>
 </layout>

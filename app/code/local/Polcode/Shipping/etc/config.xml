@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Polcode_Shipping>
-            <version>0.3.0</version>
+            <version>0.4.0</version>
         </Polcode_Shipping>
     </modules>
     
@@ -25,6 +25,9 @@
                     <shipping>
                         <table>polcode_shipping</table>
                     </shipping>
+                    <shippingexcludes>
+                        <table>polcode_shipping_excludes</table>
+                    </shippingexcludes>
                 </entities>
             </polcodeshipping_resource>
             <checkout>
