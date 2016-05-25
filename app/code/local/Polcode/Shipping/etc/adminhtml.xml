@@ -17,6 +17,13 @@
                     <sort_order>200</sort_order>
                 </polcodeshipping_shipping_excludes>
             </children>
+            <children>
+                <polcodeshipping_shippping_report translate="title" module="polcodeshipping">
+                    <title>Polcode Shipping Next Week Orders</title>
+                    <action>adminhtml/shippingreport</action>
+                    <sort_order>201</sort_order>
+                </polcodeshipping_shippping_report>
+            </children>
         </sales>
     </menu>
      
@@ -34,6 +41,11 @@
                             <polcodeshipping_shipping_excludes>
                                 <title>Polcode Shipping Excludes</title>
                             </polcodeshipping_shipping_excludes>
+                        </children>
+                        <children>
+                            <polcodeshipping_shippping_report>
+                                <title>Polcode Shipping Next Week Orders</title>
+                            </polcodeshipping_shippping_report>
                         </children>
                     </sales>
                 </children>
