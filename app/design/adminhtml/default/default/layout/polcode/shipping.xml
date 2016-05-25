@@ -10,4 +10,11 @@
             <block type="polcodeshipping/adminhtml_shippingexcludes" name="polcodeshipping_shippingexcludes" />
         </reference>
     </adminhtml_shippingexcludes_index>
+    <adminhtml_sales_order_view>
+        <reference name="order_tab_info">
+            <action method="setTemplate">
+                <template>polcode/shipping/view_order/info.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
 </layout>

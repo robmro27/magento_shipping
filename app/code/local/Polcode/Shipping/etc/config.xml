@@ -35,6 +35,11 @@
                     <type_onepage>Polcode_Shipping_Model_Checkout_Onepage</type_onepage>
                 </rewrite>
             </checkout>
+            <sales>
+                <rewrite>
+                    <order>Polcode_Shipping_Model_Sales_Order</order>
+                </rewrite>
+            </sales>
         </models>
         <helpers>
             <polcodeshipping>
