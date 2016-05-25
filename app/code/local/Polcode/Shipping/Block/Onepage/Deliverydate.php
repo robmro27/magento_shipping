@@ -27,6 +27,12 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
      */
     private $ordersCountForNextWeekIntervals = null;
     
+    /**
+     * Storage of excludes
+     * @var array
+     */
+    private $excludesCollection = null;
+    
     
     protected function _prepareLayout() 
     {
@@ -67,15 +73,68 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
         if ( $this->intervalsByDays == null ) {
             $shippingIntervals = Mage::getModel('polcodeshipping/shipping');
             foreach ($shippingIntervals->getCollection()->getData() as $interval) {
-                if ( $this->getOrdersCountForNextWeekInterval($interval['id']) < $interval['order_limit'] ) {
-                    $this->intervalsByDays[$interval['weekday']][] = $interval;
-                }
+               
+                if ( !$this->isLimitReached($interval) && 
+                     !$this->isIntervalExcluded($interval) ) {
+                    $this->intervalsByDays[$interval['weekday']][] = $interval;   
+                }           
             }
         }
         return $this->intervalsByDays;;
     }
     
     
+    
+    /**
+     * Check if interval is excluded
+     * @param array $interval
+     * @return boolean
+     */
+    public function isIntervalExcluded( array $interval ) 
+    {
+        
+        $date = Mage::helper('polcodeshipping')->getDateForNextWeekDay($interval['weekday']);
+        $excludes = $this->getExcludesCollectionByDate($date);
+            
+        $intervalDateFrom = new \DateTime($date. ' ' . $interval['hour_start']);
+        $intervalDateTo = new \DateTime($date. ' ' . $interval['hour_end']);
+            
+        foreach ( $excludes as $exclude ) {
+            
+            $excludeDateFrom = new \DateTime($exclude['date']. ' '. $exclude['hour_start']);
+            $excludeDateTo = new \DateTime($exclude['date']. ' ' .$exclude['hour_end']);
+            
+            if ( 
+                    ( $excludeDateFrom >= $intervalDateFrom &&
+                      $excludeDateFrom <= $intervalDateTo ) ||
+                    ( $excludeDateTo >= $intervalDateFrom &&
+                      $excludeDateTo <= $intervalDateTo )
+               ) 
+            {
+                return true;
+            }
+           
+        }
+        
+        return false;
+        
+        
+        
+    }
+    
+    
+    /**
+     * Check if orders limit is reached
+     * @param array $interval
+     * @return boolean
+     */
+    private function isLimitReached( array $interval ) 
+    {
+        if ( $this->getOrdersCountForNextWeekInterval($interval['id']) < $interval['order_limit'] ) {
+            return false;
+        }
+        return true;
+    }
     
     
     
@@ -84,7 +143,7 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
      * needed for check if limit was reached
      * @return type
      */
-    public function getOrdersCountForNextWeekIntervals() 
+    private function getOrdersCountForNextWeekIntervals() 
     {
         if ( $this->ordersCountForNextWeekIntervals == null ) {
         
@@ -117,7 +176,7 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
      * @param int $intervalId
      * @return int
      */
-    public function getOrdersCountForNextWeekInterval( $intervalId ) 
+    private function getOrdersCountForNextWeekInterval( $intervalId ) 
     {
         foreach ( $this->getOrdersCountForNextWeekIntervals() as $interval ) {
             
@@ -126,6 +185,40 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
             }
             
         }
+    }
+    
+    /**
+     * Return array of excludes
+     * @return type
+     */
+    public function getExcludesCollection() {
+        
+        if ($this->excludesCollection == null) {
+            $excludeModel = Mage::getModel('polcodeshipping/shippingexcludes')->getCollection();
+            foreach ( $excludeModel as $exclude ) {
+                 $this->excludesCollection[] = $exclude->getData();
+            }
+        }
+        
+        return $this->excludesCollection;
+        
+    }
+    
+    /**
+     * Return array of excludes by date
+     * @param type $date
+     * @return type
+     */
+    public function getExcludesCollectionByDate( $date ) {
+    
+        $arr = [];
+        foreach ( $this->getExcludesCollection() as $exclude ) {
+            if ( $exclude['date'] == $date ) {
+                $arr[] = $exclude;
+            }
+        }
+        return $arr;
+        
     }
     
 }

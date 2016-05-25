@@ -7,12 +7,14 @@
                 <polcodeshipping_shipping translate="title" module="polcodeshipping">
                     <title>Polcode Shipping</title>
                     <action>adminhtml/shipping</action>
+                    <sort_order>199</sort_order>
                 </polcodeshipping_shipping>
             </children>
             <children>
                 <polcodeshipping_shipping_excludes translate="title" module="polcodeshipping">
                     <title>Polcode Shiping Excludes</title>
                     <action>adminhtml/shippingexcludes</action>
+                    <sort_order>200</sort_order>
                 </polcodeshipping_shipping_excludes>
             </children>
         </sales>

@@ -37,4 +37,10 @@ class Polcode_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
         return $arr;
     }
     
+    public function getDateForNextWeekDay( $weekDay )
+    {
+        $weekdayName = Mage::helper('polcodeshipping')->weekdays()[$weekDay];
+        return date('Y-m-d', strtotime("next " . $weekdayName));
+    }
+    
 }

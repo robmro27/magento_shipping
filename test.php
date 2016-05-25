@@ -3,10 +3,20 @@
 include 'app/Mage.php';
 Mage::app();
 
+
+
+
 $block = Mage::app()->getLayout()->createBlock('polcodeshipping/onepage_deliverydate');
 
 echo '<pre>';
-var_dump($block->getOrdersCountForNextWeekInterval(12));
+$block->getIntervalsByDays();
+echo '</pre>';
+die;
+
+$helper = Mage::helper('polcodeshipping');
+
+echo '<pre>';
+print_r($helper->getDateForNextWeekDay(1));
 echo '</pre>';
 die;
 
