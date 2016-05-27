@@ -4,7 +4,7 @@
  * Calendar Day Interval Order
  * @author rmroz
  */
-class Polcode_Shipping_Model_Calendar_Order {
+class Polcode_Shipping_Model_CalendarAdmin_Order {
     
     /**
      * Url to  order view

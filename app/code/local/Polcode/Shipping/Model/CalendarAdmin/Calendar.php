@@ -4,7 +4,7 @@
  * Calendar display in admin panel
  * @author rmroz
  */
-class Polcode_Shipping_Model_Calendar_Calendar {
+class Polcode_Shipping_Model_CalendarAdmin_Calendar {
     
     /**
      * Date from for calendar
@@ -40,7 +40,7 @@ class Polcode_Shipping_Model_Calendar_Calendar {
         
         do {
             
-            $day = new Polcode_Shipping_Model_Calendar_Day( $date );
+            $day = new Polcode_Shipping_Model_CalendarAdmin_Day( $date );
             
             $this->addDay($day);
             

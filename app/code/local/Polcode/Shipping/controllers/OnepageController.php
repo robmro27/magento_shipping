@@ -4,18 +4,37 @@ class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
 {   
     public function deliverydateAction()
     {
-               
-        $id = $this->getRequest()->getParams('polcode_shipping_id')['interval'];
-        $interval = Mage::getModel('polcodeshipping/shipping')->load($id);
+        $date = null;       
         
-        $weekdayName = Mage::helper('polcodeshipping')->weekdays()[$interval['weekday']];
-        $date = date('Y-m-d', strtotime("next " . $weekdayName));
+        $shippingMethod = $this->getRequest()->getParams('shipping_method')['interval'];
+        $polcodeShippingId = $this->getRequest()->getParams('polcode_shipping_id')['interval'];
         
+        echo '<pre>';
+        print_r($this->getRequest()->getParams('polcode_shipping_id'));
+        echo '</pre>';
+        die;
+        
+        if ( $polcodeShippingId ) {
+            $shippingMethod = 'polcodeshipping_standard';
+        }
+        
+        
+        if ( $shippingMethod == 'polcodeshipping_standard' ) {
+            $date = $this->getDayDateByShippingId($polcodeShippingId);
+        }
+        
+        
+        
+        
+
         $cart = Mage::getModel('checkout/cart')->getQuote();
+        
+        $cart->collectTotals();
+        
         $cart->getShippingAddress()
              ->setCollectShippingRates(true)
-             ->setShippingMethod('polcodeshipping_standard')
-             ->setPolcodeShippingId($id)
+             ->setShippingMethod($shippingMethod)
+             ->setPolcodeShippingId($polcodeShippingId)
              ->setPolcodeDeliveryDate($date);
         
         if (!isset($result['error'])) {
@@ -28,4 +47,12 @@ class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
         
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
+    
+    
+    private function getDayDateByShippingId( $id ) 
+    {
+        $interval = Mage::getModel('polcodeshipping/shipping')->load( $id );
+        return Mage::helper('polcodeshipping')->getDateForNextWeekDay( $interval['weekday'] );
+    }
+    
 }

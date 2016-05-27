@@ -4,10 +4,10 @@ include 'app/Mage.php';
 Mage::app();
 
 
-$block = Mage::app()->getLayout()->createBlock('polcodeshipping/adminhtml_shippingreport');
+$block = Mage::app()->getLayout()->createBlock('polcodeshipping/onepage_deliverydate');
 
 echo '<pre>';
-print_r($block->test());
+print_r($block->getCalendar()->getDays());
 echo '</pre>';
 die;
 

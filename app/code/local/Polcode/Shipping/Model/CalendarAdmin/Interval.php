@@ -4,7 +4,7 @@
  * Calendar Day Interval
  * @author rmroz
  */
-class Polcode_Shipping_Model_Calendar_Interval {
+class Polcode_Shipping_Model_CalendarAdmin_Interval {
     
     
     /**

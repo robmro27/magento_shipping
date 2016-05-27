@@ -1,23 +1,27 @@
 <?php
-     $cart = Mage::getModel('checkout/cart')->getQuote();
-     $polcodeShippingId =  $cart->getShippingAddress()->getPolcodeShippingId();
-     $polcodeDeliveryDate =  $cart->getShippingAddress()->getPolcodeDeliveryDate();
+    // Get data saved in cart
+    $cart = Mage::getModel('checkout/cart')->getQuote();
+    $polcodeShippingId =  $cart->getShippingAddress()->getPolcodeShippingId();
+    $polcodeDeliveryDate =  $cart->getShippingAddress()->getPolcodeDeliveryDate();
 ?>
 
+
+
+<!--Display calendar-->
 <div>
     <table style="border-spacing: 10px;border-collapse: separate;">
         <tr>
-            <?php foreach ($this->getNextWeekDates() as $day) { ?>
-            <th style="padding: 10px;"><?php echo date('l', strtotime($day)) ?>
-                <br/><small>(<?php echo $day ?>)</small>
-            </th>
+            <?php foreach ( $this->getCalendar()->getDays() as $day ) { ?>
+                <th style="padding: 10px;">
+                    <small><?php echo $day->getDate() ?><br/>(<?php echo $day->getWeekdayName() ?>)</small>
+                </th>
             <?php } ?>
         </tr>
         <tr>
             <input type="text" name="polcode_delivery_date" value="<?php echo $polcodeDeliveryDate ?>"/>
-            <?php foreach ($this->getNextWeekDates() as $day) { ?>
+            <?php foreach ( $this->getCalendar()->getDays() as $day ) { ?>
             <td style="padding: 10px;">
-                <?php foreach ( $this->getIntervalsByDays()[date('w', strtotime($day))] as $interval ) { ?>
+                <?php foreach ( $day->getIntervals() as $interval ) { ?>
                     <small><?php echo $interval['hour_start'] ?> - <?php echo $interval['hour_end'] ?></small><br />
                     <input <?php if ( $polcodeShippingId == $interval['id'] ) { ?> checked="checked" <?php } ?> type="radio" name="polcode_shipping_id" value="<?php echo $interval['id']?>"/>    
                     <small><?php echo Mage::helper('core')->currency($interval['cost'], true, false); ?></small><br />
@@ -25,22 +29,39 @@
             </td>
             <?php } ?>
         </tr>
-        
     </table>
 </div>
 
+
+
+<!--Loader-->
 <span id="delivery-calendar-please-wait" class="please-wait" style="display:none;">
     <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" 
          alt="<?php echo Mage::helper('polcodeshipping')->quoteEscape($this->__('Recalculate Shipping ...')) ?>" title="<?php echo Mage::helper('polcodeshipping')->quoteEscape($this->__('Recalculate Shipping ...')) ?>" class="v-middle" /> <?php echo $this->__('Recalculate Shipping ...') ?>
 </span>
 
 
+
+
+<!--Reloads shipping method step-->
 <script type="text/javascript">
 //<![CDATA[
     var radioSelectorString = 'input[type="radio"][name="polcode_shipping_id"]';
+    var radioSelectorString2 = 'input[type="radio"][name="shipping_method"]';
     var deliveryCalendarLoader = 'delivery-calendar-please-wait';
 
+    // calendar radios
     $$(radioSelectorString).each(function(el){
+        dispatch(el);
+    });
+    
+    // shipping method radios
+    $$(radioSelectorString2).each(function(el){
+        dispatch(el);
+    });
+    
+    // refresh
+    function dispatch( el ) {
         Event.observe(el, 'click', function(){
             if (el.checked == true){
 
@@ -48,7 +69,6 @@
 
                 $$(radioSelectorString).each( function(el){ el.disable(); } );
                 Element.show(deliveryCalendarLoader);
-
 
                 new Ajax.Request('<?php echo $this->getPostUrl() ?>', {
                     method: 'post',
@@ -68,6 +88,7 @@
 
             }
         });
-    });
+    }
+    
 //]]>
 </script>

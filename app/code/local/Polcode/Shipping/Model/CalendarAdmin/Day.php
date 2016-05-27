@@ -4,7 +4,7 @@
  * Calendar day
  * @author rmroz
  */
-class Polcode_Shipping_Model_Calendar_Day {
+class Polcode_Shipping_Model_CalendarAdmin_Day {
     
     /**
      * Date of day
@@ -58,7 +58,7 @@ class Polcode_Shipping_Model_Calendar_Day {
             
             $interval = $this->addInterval($data);
             
-            $order = new Polcode_Shipping_Model_Calendar_Order( $data['entity_id'], $data['increment_id'] );
+            $order = new Polcode_Shipping_Model_CalendarAdmin_Order( $data['entity_id'], $data['increment_id'] );
             $interval->addOrder($order);
             
         }
@@ -74,7 +74,7 @@ class Polcode_Shipping_Model_Calendar_Day {
     {
         
         if ( !isset( $this->intervals[$data['polcode_shipping_id']] ) ) {
-            $this->intervals[$data['polcode_shipping_id']] = new Polcode_Shipping_Model_Calendar_Interval( $data['hour_start'], $data['hour_end'] );
+            $this->intervals[$data['polcode_shipping_id']] = new Polcode_Shipping_Model_CalendarAdmin_Interval( $data['hour_start'], $data['hour_end'] );
         }
         
         return $this->intervals[$data['polcode_shipping_id']];

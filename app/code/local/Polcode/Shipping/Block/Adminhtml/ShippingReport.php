@@ -24,7 +24,7 @@ class Polcode_Shipping_Block_Adminhtml_ShippingReport extends Mage_Adminhtml_Blo
         
         list($startDate, $endDate) = $this->getDatesForReport();
         
-        $this->calendar = new Polcode_Shipping_Model_Calendar_Calendar($startDate, $endDate);
+        $this->calendar = new Polcode_Shipping_Model_CalendarAdmin_Calendar($startDate, $endDate);
         
     }
     
