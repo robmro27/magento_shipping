@@ -5,3 +5,31 @@
         </tr>
     </table>
 </div>
+
+<h1>Calendar for dates: <?php echo $this->getCalendar()->getDateFrom()->format('Y-m-d') ?> to <?php echo $this->getCalendar()->getDateTo()->format('Y-m-d') ?></h1>
+
+<a href="<?php echo $this->prevWeekUrl()?>">Previous week</a>
+<a href="<?php echo $this->nextWeekUrl()?>">Next week</a>
+<a href="<?php echo $this->nearWeekUrl()?>">Near week</a>
+
+    <?php foreach ( $this->getCalendar()->getDays() as $day ) { ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4><?php echo $day->getDate()->format('Y-m-d'). ' - ' . $day->getWeekDay() ?></h4>
+        </div>
+        <fieldset>
+            <?php foreach ( $day->getIntervals() as $interval ) { ?>
+                <div><?php echo $interval->getHourStart() . ' - ' . $interval->getHourEnd() ?>
+                    
+                        <?php foreach ( $interval->getOrders() as $order ) { ?>
+              
+                            <a href="<?php echo $order->getUrl() ?>"><?php echo $order->getIncrementId() ?></a>, &nbsp;
+                 
+                        <?php } ?>
+            
+                </div>
+            <?php } ?>
+        </fieldset>
+    </div>
+<?php } ?>
+

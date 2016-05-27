@@ -4,13 +4,21 @@ include 'app/Mage.php';
 Mage::app();
 
 
-
-
-$block = Mage::app()->getLayout()->createBlock('polcodeshipping/onepage_deliverydate');
+$block = Mage::app()->getLayout()->createBlock('polcodeshipping/adminhtml_shippingreport');
 
 echo '<pre>';
-$block->getIntervalsByDays();
+print_r($block->test());
 echo '</pre>';
+die;
+
+foreach ( $block->test() as $test ) {
+    
+    echo '<pre>';
+    print_r($test->getData());
+    echo '</pre>';
+    
+    
+}  
 die;
 
 $helper = Mage::helper('polcodeshipping');
