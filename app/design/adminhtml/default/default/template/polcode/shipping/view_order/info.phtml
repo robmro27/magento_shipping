@@ -75,9 +75,10 @@
                         (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                     <?php endif; ?>
                     
-                    <br/>Selected delivery date & time:
+                    <?php echo $this->__('Delivery Date & Time') ?>:         
                     <?php echo $_order->getDisplayDeliveryDateTimeInterval() ?>  
                         
+
                 <?php else: ?>
                     <?php echo $this->helper('sales')->__('No shipping information available'); ?>
                 <?php endif; ?>

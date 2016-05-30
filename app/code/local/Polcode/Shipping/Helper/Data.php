@@ -6,6 +6,22 @@
 class Polcode_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
 {
     
+    /**
+     * Returns display version of selected delivery date and interval
+     * @param string $shippingDate
+     * @param int $shippingId
+     * @return string
+     */
+    public function getDisplaySelectedDeliveryDateTime( $shippingDate , $shippingId )
+    {
+        $interval = Mage::getModel('polcodeshipping/shipping')->load($shippingId);
+        return $shippingDate . ' ' . $interval->getHourStart() . '-' . $interval->getHourEnd();
+    }
+    
+    /**
+     * Returns next week days
+     * @return array
+     */
     public function weekdays() {
         
         $timestamp = strtotime('next Sunday');
@@ -17,6 +33,11 @@ class Polcode_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
         return $days;
     }
     
+    
+    /**
+     * Returns next week dates
+     * @return array
+     */
     public function nextWeekDates() {
         
         $timestamp = strtotime('+1 day', time());
@@ -29,6 +50,10 @@ class Polcode_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
         
     }
     
+    /**
+     * Returns hours for admin 
+     * @return array
+     */
     public function hours() {
         $arr = [];
         for($i = 1; $i <= 24; $i++) {
@@ -37,6 +62,11 @@ class Polcode_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
         return $arr;
     }
     
+    /**
+     * Returns date of next weekday by weekday name
+     * @param int $weekDay
+     * @return string
+     */
     public function getDateForNextWeekDay( $weekDay )
     {
         $weekdayName = Mage::helper('polcodeshipping')->weekdays()[$weekDay];

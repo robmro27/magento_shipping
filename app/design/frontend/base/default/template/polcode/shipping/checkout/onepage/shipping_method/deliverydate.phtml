@@ -18,7 +18,7 @@
             <?php } ?>
         </tr>
         <tr>
-            <input type="text" name="polcode_delivery_date" value="<?php echo $polcodeDeliveryDate ?>"/>
+            <input type="hidden" name="polcode_delivery_date" value="<?php echo $polcodeDeliveryDate ?>"/>
             <?php foreach ( $this->getCalendar()->getDays() as $day ) { ?>
             <td style="padding: 10px;">
                 <?php foreach ( $day->getIntervals() as $interval ) { ?>

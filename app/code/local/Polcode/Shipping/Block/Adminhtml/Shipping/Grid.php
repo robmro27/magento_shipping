@@ -28,6 +28,7 @@ class Polcode_Shipping_Block_Adminhtml_Shipping_Grid
     {
         
         $collection = Mage::getResourceModel($this->_getCollectionClass());
+        $collection->addFieldToFilter('deleted',0); // no deleted flag
         $this->setCollection($collection);
          
         return parent::_prepareCollection();

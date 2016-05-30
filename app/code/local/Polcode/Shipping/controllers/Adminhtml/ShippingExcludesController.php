@@ -94,7 +94,9 @@ class Polcode_Shipping_Adminhtml_ShippingExcludesController
           {
               
               $model = Mage::getModel('polcodeshipping/shippingexcludes');
-              $model->setId($this->getRequest()->getParam('id'))->delete();
+              $model->setId($this->getRequest()->getParam('id'));
+              $model->setDeleted(1);
+              $model->save();
               Mage::getSingleton('adminhtml/session')->addSuccess('Shipping exclude deleted');
               $this->_redirect('*/*/');
            }

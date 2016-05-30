@@ -94,7 +94,9 @@ class Polcode_Shipping_Adminhtml_ShippingController
           {
               
               $model = Mage::getModel('polcodeshipping/shipping');
-              $model->setId($this->getRequest()->getParam('id'))->delete();
+              $model->setId($this->getRequest()->getParam('id'));
+              $model->setDeleted(1);
+              $model->save();
               Mage::getSingleton('adminhtml/session')->addSuccess('Shipping deleted');
               $this->_redirect('*/*/');
            }
