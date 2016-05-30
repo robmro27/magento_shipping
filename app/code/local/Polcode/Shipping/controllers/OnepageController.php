@@ -2,40 +2,77 @@
 require_once 'Mage/Checkout/controllers/OnepageController.php';
 class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
 {   
-    public function deliverydateAction()
+    
+    /**
+     * Polcode shipping method code
+     */
+    const SHIPPING_CODE = 'polcodeshipping_standard';
+    
+    
+    /**
+     * Change Shipping Method 
+     */
+    public function changeShippngMethodAction()
     {
-        $date = null;       
-        
-        $shippingMethod = $this->getRequest()->getParams('shipping_method')['interval'];
-        $polcodeShippingId = $this->getRequest()->getParams('polcode_shipping_id')['interval'];
-        
-        echo '<pre>';
-        print_r($this->getRequest()->getParams('polcode_shipping_id'));
-        echo '</pre>';
-        die;
-        
-        if ( $polcodeShippingId ) {
-            $shippingMethod = 'polcodeshipping_standard';
+        $shippingMethod = $this->getRequest()->getParams()['params'];
+       
+        // set default shipping date interval
+        if ( $shippingMethod == self::SHIPPING_CODE ) {
+            
+            $calendar = new Polcode_Shipping_Model_CalendarFront_Calendar();
+            $calendarInterval = $calendar->getDays()[0]->getIntervals()[0];
+            
+            $polcodeShippingId = $calendarInterval['id'];
+            $polcodeShippingDate = Mage::helper('polcodeshipping')->getDateForNextWeekDay( $calendarInterval['weekday'] );
+            
+        } 
+        // reset shipping date interval
+        else {
+            $polcodeShippingId = null;
+            $polcodeShippingDate = null;
         }
         
+        $this->returnResult($shippingMethod, $polcodeShippingId, $polcodeShippingDate);
+    }
+    
+    
+    /**
+     * Change Shipping Date
+     */
+    public function changeShippngDateAction()
+    {
         
-        if ( $shippingMethod == 'polcodeshipping_standard' ) {
-            $date = $this->getDayDateByShippingId($polcodeShippingId);
-        }
+        $shippingMethod = self::SHIPPING_CODE;
+        $polcodeShippingId = $this->getRequest()->getParams()['params'];
         
+        $interval = Mage::getModel('polcodeshipping/shipping')->load($polcodeShippingId);
         
-        
-        
+        $polcodeShippingDate = Mage::helper('polcodeshipping')->getDateForNextWeekDay( $interval['weekday'] );
+        $this->returnResult($shippingMethod, $polcodeShippingId, $polcodeShippingDate);
+    }
+    
+    
 
-        $cart = Mage::getModel('checkout/cart')->getQuote();
+    /**
+     * Sets shipping method and date into quote and refresh 
+     * select shipping step in checkout
+     * @param int $shippingMethod
+     * @param int $polcodeShippingId
+     * @param string $polcodeShippingDate
+     */
+    private function returnResult( $shippingMethod, $polcodeShippingId, $polcodeShippingDate )
+    {
         
+        $cart = Mage::getModel('checkout/cart')->getQuote();
+        $cart->getShippingAddress()->setPolcodeShippingId($polcodeShippingId);
+        $cart->getShippingAddress()->setPolcodeDeliveryDate($polcodeShippingDate);
         $cart->collectTotals();
         
         $cart->getShippingAddress()
              ->setCollectShippingRates(true)
              ->setShippingMethod($shippingMethod)
              ->setPolcodeShippingId($polcodeShippingId)
-             ->setPolcodeDeliveryDate($date);
+             ->setPolcodeDeliveryDate($polcodeShippingDate);
         
         if (!isset($result['error'])) {
             $result['goto_section'] = 'shipping_method';
@@ -46,13 +83,6 @@ class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
         }
         
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-    }
-    
-    
-    private function getDayDateByShippingId( $id ) 
-    {
-        $interval = Mage::getModel('polcodeshipping/shipping')->load( $id );
-        return Mage::helper('polcodeshipping')->getDateForNextWeekDay( $interval['weekday'] );
     }
     
 }

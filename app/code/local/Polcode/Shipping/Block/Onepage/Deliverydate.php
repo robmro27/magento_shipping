@@ -27,11 +27,16 @@ class Polcode_Shipping_Block_Onepage_Deliverydate extends Mage_Checkout_Block_On
     }
  
     
-    public function getPostUrl()
+    public function getChangeShippingMethodUrl()
     {
-        return Mage::getUrl('checkout/onepage/deliverydate', array('_secure'=>true)); 
+        return Mage::getUrl('checkout/onepage/changeShippngMethod', array('_secure'=>true)); 
     }
 
+    
+    public function getChangeShippingDateUrl()
+    {
+        return Mage::getUrl('checkout/onepage/changeShippngDate', array('_secure'=>true));
+    }
     
     
     public function getCalendar() 

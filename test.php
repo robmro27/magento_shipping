@@ -4,6 +4,14 @@ include 'app/Mage.php';
 Mage::app();
 
 
+$configValue = Mage::getStoreConfig('sales/shippingsettings/country');
+
+echo '<pre>';
+print_r($configValue);
+echo '</pre>';
+die;
+
+
 $block = Mage::app()->getLayout()->createBlock('polcodeshipping/onepage_deliverydate');
 
 echo '<pre>';

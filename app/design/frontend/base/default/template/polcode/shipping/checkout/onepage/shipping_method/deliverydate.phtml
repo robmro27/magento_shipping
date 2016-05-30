@@ -52,27 +52,29 @@
 
     // calendar radios
     $$(radioSelectorString).each(function(el){
-        dispatch(el);
+        var url = '<?php echo $this->getChangeShippingDateUrl() ?>';
+        dispatch(el, url);
     });
     
     // shipping method radios
     $$(radioSelectorString2).each(function(el){
-        dispatch(el);
+        var url = '<?php echo $this->getChangeShippingMethodUrl() ?>';
+        dispatch(el, url);
     });
     
     // refresh
-    function dispatch( el ) {
+    function dispatch( el, url ) {
         Event.observe(el, 'click', function(){
             if (el.checked == true){
 
-                var interval = el.getValue();
+                var value = el.getValue();
 
                 $$(radioSelectorString).each( function(el){ el.disable(); } );
                 Element.show(deliveryCalendarLoader);
 
-                new Ajax.Request('<?php echo $this->getPostUrl() ?>', {
+                new Ajax.Request(url, {
                     method: 'post',
-                    parameters: { 'interval': interval },
+                    parameters: { 'params': value },
                     onSuccess: function(transport){ 
 
                         //var json = transport.responseText.evalJSON();
