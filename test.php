@@ -3,6 +3,10 @@
 include 'app/Mage.php';
 Mage::app();
 
+echo '<pre>';
+print_r($_SERVER['REMOTE_ADDR']);
+echo '</pre>';
+die;
 
 $configValue = Mage::getStoreConfig('sales/shippingsettings/country');
 

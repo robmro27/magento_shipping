@@ -149,6 +149,16 @@
                </args>
             </checkout>
         </routers>
+        <events>
+            <controller_action_layout_load_before>
+                <observers>
+                    <polcode_helloworld_layout_load_before>
+                        <class>polcodeshipping/observer</class>
+                        <method>controllerActionLayoutLoadBefore</method>
+                    </polcode_helloworld_layout_load_before>
+                </observers>
+            </controller_action_layout_load_before>
+        </events>
     </frontend>
     
     <admin>
