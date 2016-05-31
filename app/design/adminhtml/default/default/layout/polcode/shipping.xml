@@ -22,4 +22,33 @@
             </action>
         </reference>
     </adminhtml_sales_order_view>
+    
+    
+    
+    
+    <add_order_grid_column_handle>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>polcode_shipping_date</columnId>
+                <arguments module="Polcode_Shipping" translate="header">
+                    <header>Delivery Date</header>
+                    <index>polcode_delivery_date</index>
+                    <type>date</type>
+                    <gmtoffset>0</gmtoffset>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+        </reference>
+    </add_order_grid_column_handle>
+    
+    <adminhtml_sales_order_grid>
+        <update handle="add_order_grid_column_handle" />
+    </adminhtml_sales_order_grid>
+    
+    <adminhtml_sales_order_index>
+        <update handle="add_order_grid_column_handle" />
+    </adminhtml_sales_order_index>
+    
+    
+    
 </layout>
