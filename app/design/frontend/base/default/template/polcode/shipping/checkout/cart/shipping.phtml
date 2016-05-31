@@ -25,11 +25,6 @@
  */
 ?>
 
-<?php 
-     $polcodeShippingCode = Polcode_Shipping_Model_Carrier::get_code();
-?>
-
-
 <?php /** @var $this Mage_Checkout_Block_Cart_Shipping */ ?>
 <div class="shipping">
     <h2><?php echo $this->__('Estimate Shipping and Tax') ?></h2>
@@ -104,7 +99,7 @@
                                <?php if ($_rate->getErrorMessage()): ?>
                                     <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
                                <?php else: ?>
-                                    <input <?php if ( $code == $polcodeShippingCode ) echo "disabled='disabled'"; ?> name="estimate_method" type="radio" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
+                                    <input name="estimate_method" type="radio" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
                                     <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                                     <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                     -
@@ -121,14 +116,11 @@
                     </dd>
                 <?php endforeach; ?>
             </dl>
-            <p class="delivery_calendar_info">
-                <?php echo $this->__('To select shippment with delivery date go to Checkout') ?>
-            </p>
-            <div class="buttons-set">
-                <button type="submit" title="<?php echo $this->quoteEscape($this->__('Update Total')) ?>" class="button" name="do" value="<?php echo $this->__('Update Total') ?>">
-                    <span><span><?php echo $this->__('Update Total') ?></span></span>
-                </button>
-            </div>
+            
+            
+            <?php echo $this->getChildHtml('calendar') ?>
+            
+            
         </form>
         
             

@@ -1,0 +1,33 @@
+<?php 
+     // Get data saved in cart
+    $cart = Mage::getModel('checkout/cart')->getQuote();
+    $polcodeShippingId =  $cart->getShippingAddress()->getPolcodeShippingId();
+    $polcodeDeliveryDate =  $cart->getShippingAddress()->getPolcodeDeliveryDate();
+?>
+
+<!--Display calendar-->
+<div class="delivery_calendar">
+    <input type="hidden" name="polcode_delivery_date" value="<?php echo $polcodeDeliveryDate ?>"/>
+    <?php foreach ( $this->getCalendar()->getDays() as $day ) { ?>
+    <div class="delivery_calendar_day">
+
+        <p class="day_number"><?php echo  $day->getDayOfMonth() ?></p>
+        <p class="month_name"><?php echo $day->getMonthRepresentation() ?></p>
+        <p class="weekday_name"><?php echo $day->getWeekdayName() ?></p>
+        <hr class="line"/>
+        <?php foreach ( $day->getIntervals() as $interval ) { ?>
+            <p class="hours"><?php echo $interval['hour_start'] ?> - <?php echo $interval['hour_end'] ?></p>
+            <input <?php if ( $polcodeShippingId == $interval['id'] ) { ?> checked="checked" <?php } ?> type="radio" name="polcode_shipping_id" value="<?php echo $interval['id']?>"/>    
+            <p class="price"><?php echo Mage::helper('core')->currency($interval['cost'], true, false); ?></p>
+        <?php } ?>
+
+    </div>
+    <?php } ?>
+    <div class="clear"></div>
+</div>
+
+<div class="buttons-set">
+    <button type="submit" title="<?php echo $this->quoteEscape($this->__('Update Total')) ?>" class="button" name="do" value="<?php echo $this->__('Update Total') ?>">
+        <span><span><?php echo $this->__('Update Total') ?></span></span>
+    </button>
+</div>

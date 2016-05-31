@@ -9,13 +9,6 @@
 class Polcode_Shipping_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstract 
 implements Mage_Shipping_Model_Carrier_Interface {
     
-    /**
-     * Need to exclude method from checout cart 
-     * no calendar there, calendar is displayed only in onepage checkout
-     * @var type 
-     */
-    protected static $code = 'polcodeshipping';
-    
     protected $_code = 'polcodeshipping';
     
     public function getAllowedMethods()
@@ -53,16 +46,5 @@ implements Mage_Shipping_Model_Carrier_Interface {
  
         return $result;
     }
-    
-    /**
-     * Returns code of polcode shipping
-     * @return string
-     */
-    public static function get_code() {
-        return self::$code;
-    }
-
-
-    
     
 }

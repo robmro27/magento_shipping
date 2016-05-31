@@ -21,8 +21,6 @@
     font-size: 12px;
     display: inline-block;
 }
-.delivery_calendar_info {
-    text-align: center;
-    color: red;
-    padding: 5px 0;
+.delivery_calendar .weekday_name {
+    font-size: 11px;
 }

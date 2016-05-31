@@ -11,7 +11,9 @@
                 <template>polcode/shipping/checkout/onepage/shipping_method/available.phtml</template>
             </action>
             <block type="checkout/onepage_shipping_method_available" template="checkout/onepage/shipping_method/available.phtml" name="polcodeshipping.checkout.onepage.shipping_method.available"></block>
-            <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate"></block>
+            <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate">
+                <block type="polcodeshipping/calendar" name="polcodeshipping.calendar" as="calendar" template="polcode/shipping/checkout/calendar.phtml"></block>
+            </block>
         </reference>
     </checkout_onepage_index>
     <checkout_onepage_shippingmethod>
@@ -20,7 +22,9 @@
                 <template>polcode/shipping/checkout/onepage/shipping_method/available.phtml</template>
             </action>
             <block type="checkout/onepage_shipping_method_available" template="checkout/onepage/shipping_method/available.phtml" name="polcodeshipping.checkout.onepage.shipping_method.available"></block>
-            <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate"></block>
+            <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate">
+                <block type="polcodeshipping/calendar" name="polcodeshipping.calendar" as="calendar" template="polcode/shipping/checkout/calendar.phtml"></block>
+            </block>
         </reference>
         <reference name="head">
             <action method="addCss"><stylesheet>css/polcode/delivery_calendar.css</stylesheet><params>media="screen"</params></action>
@@ -34,6 +38,7 @@
             <action method="setTemplate">
                 <template>polcode/shipping/checkout/cart/shipping.phtml</template>
             </action>
+            <block type="polcodeshipping/calendar" name="polcodeshipping.calendar" as="calendar" template="polcode/shipping/checkout/calendar.phtml"></block>
         </reference>
     </checkout_cart_index>   
 </layout>
