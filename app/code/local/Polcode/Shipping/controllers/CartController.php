@@ -10,11 +10,6 @@ require_once 'Mage/Checkout/controllers/CartController.php';
 class Polcode_Shipping_CartController extends Mage_Checkout_CartController {
     
     /**
-     * Polcode shipping method code
-     */
-    const SHIPPING_CODE = 'polcodeshipping_standard';
-    
-    /**
      * If update total update shipping methods and calendar dates
      */
     public function estimateUpdatePostAction()
@@ -25,7 +20,7 @@ class Polcode_Shipping_CartController extends Mage_Checkout_CartController {
         $polcodeShippingDate = null;
         
         $estimateMethod = $this->getRequest()->get('estimate_method');
-        if ( $estimateMethod == self::SHIPPING_CODE ) {
+        if ( $estimateMethod == Polcode_Shipping_Model_Carrier::$codeMethod ) {
             $polcodeShippingDate = $this->getRequest()->get('polcode_delivery_date');
             $polcodeShippingId =  $this->getRequest()->get('polcode_shipping_id');
         } 

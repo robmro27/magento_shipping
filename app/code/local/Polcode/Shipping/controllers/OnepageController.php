@@ -2,13 +2,6 @@
 require_once 'Mage/Checkout/controllers/OnepageController.php';
 class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
 {   
-    
-    /**
-     * Polcode shipping method code
-     */
-    const SHIPPING_CODE = 'polcodeshipping_standard';
-    
-    
     /**
      * Change Shipping Method 
      */
@@ -17,7 +10,7 @@ class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
         $shippingMethod = $this->getRequest()->getParams()['params'];
        
         // set default shipping date interval
-        if ( $shippingMethod == self::SHIPPING_CODE ) {
+        if ( $shippingMethod == Polcode_Shipping_Model_Carrier::$codeMethod ) {
             
             $calendar = new Polcode_Shipping_Model_CalendarFront_Calendar();
             $calendarInterval = $calendar->getDays()[0]->getIntervals()[0];
@@ -42,7 +35,7 @@ class Polcode_Shipping_OnepageController extends Mage_Checkout_OnepageController
     public function changeShippngDateAction()
     {
         
-        $shippingMethod = self::SHIPPING_CODE;
+        $shippingMethod = Polcode_Shipping_Model_Carrier::$codeMethod;
         $polcodeShippingId = $this->getRequest()->getParams()['params'];
         
         $interval = Mage::getModel('polcodeshipping/shipping')->load($polcodeShippingId);

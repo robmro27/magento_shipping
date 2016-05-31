@@ -9,7 +9,12 @@
 class Polcode_Shipping_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstract 
 implements Mage_Shipping_Model_Carrier_Interface {
     
+    
+    
     protected $_code = 'polcodeshipping';
+    
+    public static $codeMethod = 'polcodeshipping_standard';
+    
     
     public function getAllowedMethods()
     {
