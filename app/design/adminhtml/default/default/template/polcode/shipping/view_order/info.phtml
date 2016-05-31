@@ -75,8 +75,10 @@
                         (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                     <?php endif; ?>
                     
-                    <?php echo $this->__('Delivery Date & Time') ?>:         
-                    <?php echo $_order->getDisplayDeliveryDateTimeInterval() ?>  
+                    <?php if ($_order->displayDeliveryDateTimeInterval()) { ?>
+                        <?php echo $this->__('Delivery Date & Time') ?>:         
+                        <?php echo $_order->getDisplayDeliveryDateTimeInterval() ?>
+                    <?php } ?>
                         
 
                 <?php else: ?>

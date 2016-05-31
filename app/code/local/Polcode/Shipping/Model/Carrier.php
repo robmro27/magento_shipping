@@ -2,12 +2,19 @@
 
 
 /**
- * Description of Polcode_Shipping_Model_Carrier
+ * Shipping carrier for polcode shipping
  *
  * @author rmroz
  */
 class Polcode_Shipping_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstract 
 implements Mage_Shipping_Model_Carrier_Interface {
+    
+    /**
+     * Need to exclude method from checout cart 
+     * no calendar there, calendar is displayed only in onepage checkout
+     * @var type 
+     */
+    protected static $code = 'polcodeshipping';
     
     protected $_code = 'polcodeshipping';
     
@@ -17,7 +24,11 @@ implements Mage_Shipping_Model_Carrier_Interface {
         return $methods;
     }
     
-    
+    /**
+     * Returns calculated price for delivery date
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return boolean|Mage_Shipping_Model_Rate_Result
+     */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {     
         if (!$this->getConfigFlag('active'))  {
@@ -43,7 +54,15 @@ implements Mage_Shipping_Model_Carrier_Interface {
         return $result;
     }
     
-    
+    /**
+     * Returns code of polcode shipping
+     * @return string
+     */
+    public static function get_code() {
+        return self::$code;
+    }
+
+
     
     
 }

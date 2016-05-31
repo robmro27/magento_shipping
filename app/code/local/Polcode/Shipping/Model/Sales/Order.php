@@ -9,6 +9,19 @@ class Polcode_Shipping_Model_Sales_Order
 {
     
     /**
+     * Check to display delivery date time in admin
+     * @return boolean
+     */
+    public function displayDeliveryDateTimeInterval() 
+    {
+        if ( $this->getPolcodeDeliveryDate() != null &&
+             $this->getPolcodeShippingId() != null) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Returns display version of selected delivery date and interval
      * @return type
      */

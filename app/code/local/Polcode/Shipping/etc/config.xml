@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Polcode_Shipping>
-            <version>0.5.0</version>
+            <version>0.6.0</version>
         </Polcode_Shipping>
     </modules>
     
@@ -11,6 +11,7 @@
             <Mage_Checkout>
                 <rewrite>
                     <onepage>Polcode_Shipping_Onepage</onepage>
+                    <cart>Polcode_Shipping_Cart</cart>
                 </rewrite>
             </Mage_Checkout>
         </controllers>
@@ -92,7 +93,7 @@
                     <copy_delivery_date>
                         <type>singleton</type>
                         <class>polcodeshipping/observer</class>
-                        <method>copyPolcodeShippingIdToQuote</method>                        
+                        <method>copyPolcodeShippingToQuote</method>                        
                     </copy_delivery_date>
                 </observers>
             </sales_convert_order_to_quote>
@@ -115,7 +116,7 @@
                 <active>0</active>
                 <show_delivery_date>0</show_delivery_date>
                 <model>polcodeshipping/carrier</model>
-                <title>Polcode Shipping Carrier</title>
+                <title>Shipping on Selected Day and Time</title>
                 <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
                 <sallowspecific>1</sallowspecific>
                 <specificcountry>GB</specificcountry>
