@@ -67,6 +67,13 @@ class Polcode_Shipping_Adminhtml_ShippingExcludesController
             $model->setData($postData);
             
             try {
+                
+                // validate hours
+                if ( (int)$postData['hour_start'] >= (int)$postData['hour_end']) {
+                    Mage::getSingleton('adminhtml/session')->addError($this->__('Hour start should be less than Hour end.'));
+                    throw new \Exception('Invalid hours selected');
+                }
+                
                 $model->save();
  
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The shipping exclude has been saved.'));
