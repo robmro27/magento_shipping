@@ -1,0 +1,23 @@
+.delivery_calendar .day_number {
+    font-size: 20px;
+    font-weight: bold;
+}
+.delivery_calendar .delivery_calendar_day {
+    width: 13%;
+    float:left;
+    margin-right:4px;
+    background: #3399cc;
+    border: 1px solid #000;
+    color: white;
+    text-align: center;
+}
+.delivery_calendar .clear {
+    clear: both;
+}
+.delivery_calendar .hours {
+    font-size: 10px;
+}
+.delivery_calendar .price {
+    font-size: 12px;
+    display: inline-block;
+}

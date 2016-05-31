@@ -27,13 +27,4 @@ class Polcode_Shipping_Model_Observer
         $observer->getQuote()->getShippingAddress()->setPolcodeDeliveryDate($observer->getOrder()->getPolcodeDeliveryDate());
     }
     
-    
-    
-    public function controllerActionLayoutLoadBefore(Varien_Event_Observer $observer)
-    {            
-        /** @var $layout Mage_Core_Model_Layout */
-        $layout = $observer->getEvent()->getLayout();
-        $layout->getUpdate()->addHandle('polcodeshipping');
-    }
-    
 } 

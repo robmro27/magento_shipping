@@ -19,10 +19,24 @@ class Polcode_Shipping_Model_CalendarFront_Day {
     private $weekdayName = null;
     
     /**
+     * Day of month
+     * @var type 
+     */
+    private $dayOfMonth = null;
+    
+    /**
+     * Month representation
+     * @var type 
+     */
+    private $monthRepresentation = null;
+    
+    
+    /**
      * Configured intervals
      * @var type 
      */
     private $intervals;
+    
     
     /**
      * 
@@ -32,10 +46,29 @@ class Polcode_Shipping_Model_CalendarFront_Day {
         
         $this->date = $date;
         $this->weekdayName = date('l', strtotime( $this->date ));
-        
+        $this->dayOfMonth = date('j', strtotime( $this->date ));
+        $this->monthRepresentation = date('M', strtotime( $this->date ));
     }
     
     
+    /**
+     * Returns month representation
+     * @return type
+     */
+    public function getMonthRepresentation() {
+        return $this->monthRepresentation;
+    }
+
+        
+    /**
+     * Returns day of month
+     * @return type
+     */
+    public function getDayOfMonth() {
+        return $this->dayOfMonth;
+    }
+
+        
     /**
      * Returns day date
      * @return string

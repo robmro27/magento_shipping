@@ -8,6 +8,9 @@
             <block type="checkout/onepage_shipping_method_available" template="checkout/onepage/shipping_method/available.phtml" name="polcodeshipping.checkout.onepage.shipping_method.available"></block>
             <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate"></block>
         </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/polcode/delivery_calendar.css</stylesheet><params>media="screen"</params></action>
+        </reference>
     </checkout_onepage_index>
     <checkout_onepage_shippingmethod>
         <reference name="root">
@@ -16,6 +19,9 @@
             </action>
             <block type="checkout/onepage_shipping_method_available" template="checkout/onepage/shipping_method/available.phtml" name="polcodeshipping.checkout.onepage.shipping_method.available"></block>
             <block type="polcodeshipping/onepage_deliverydate" name="polcodeshipping.deliverydate"></block>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/polcode/delivery_calendar.css</stylesheet><params>media="screen"</params></action>
         </reference>
     </checkout_onepage_shippingmethod>    
     <checkout_onepage_progress_shipping_method>
