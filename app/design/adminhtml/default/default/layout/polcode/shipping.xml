@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <layout>
+    
     <adminhtml_shipping_index>
         <reference name="content">
             <block type="polcodeshipping/adminhtml_shipping" name="polcodeshipping_shipping" />
@@ -25,7 +26,7 @@
     
     
     
-    
+    <!-- Admin Grid -->
     <add_order_grid_column_handle>
         <reference name="sales_order.grid">
             <action method="addColumnAfter">
@@ -49,6 +50,22 @@
         <update handle="add_order_grid_column_handle" />
     </adminhtml_sales_order_index>
     
+    
+    <adminhtml_sales_order_create_index>
+        <reference name="shipping_method">
+            <block type="polcodeshipping/adminhtml_createorder_deliverycalendar" template="polcode/create_order/delivery_calendar.phtml" name="create_delivery_calendar" />
+        </reference>
+    </adminhtml_sales_order_create_index>
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="shipping_method">
+            <block type="polcodeshipping/adminhtml_createorder_deliverycalendar" template="polcode/create_order/delivery_calendar.phtml" name="create_delivery_calendar" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+    <adminhtml_sales_order_create_load_block_shipping_method>
+        <reference name="shipping_method">
+            <block type="polcodeshipping/adminhtml_createorder_deliverycalendar" template="polcode/create_order/delivery_calendar.phtml" name="create_delivery_calendar" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_shipping_method>
     
     
 </layout>
