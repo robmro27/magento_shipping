@@ -5,7 +5,7 @@
  *
  * @author rmroz
  */
-class Polcode_Shipping_Block_Adminhtml_ShippingExcludes_Edit_Form 
+class Polcode_Shipping_Block_Adminhtml_Shippingexcludes_Edit_Form 
     extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
