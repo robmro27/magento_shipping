@@ -4,7 +4,7 @@
  * Display week calendar with shipping orders by hours intervals
  * @author rmroz
  */
-class Polcode_Shipping_Block_Adminhtml_ShippingReport extends Mage_Adminhtml_Block_Template {
+class Polcode_Shipping_Block_Adminhtml_Shippingreport extends Mage_Adminhtml_Block_Template {
     
     
     /**

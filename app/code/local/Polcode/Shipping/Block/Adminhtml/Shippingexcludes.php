@@ -5,7 +5,7 @@
  *
  * @author rmroz
  */
-class Polcode_Shipping_Block_Adminhtml_ShippingExcludes extends Mage_Adminhtml_Block_Widget_Grid_Container {
+class Polcode_Shipping_Block_Adminhtml_Shippingexcludes extends Mage_Adminhtml_Block_Widget_Grid_Container {
     
     public function __construct()
     {
