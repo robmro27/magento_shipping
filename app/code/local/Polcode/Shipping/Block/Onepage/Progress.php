@@ -26,9 +26,9 @@ class Polcode_Shipping_Block_Onepage_Progress extends Mage_Checkout_Block_Onepag
      */
     public function getDisplayDeliveryDatetime()
     {   
-        $shippingDate = $this->getQuote()->getShippingAddress()->getPolcodeShippingDate();
+        $shippingDate = $this->getQuote()->getShippingAddress()->getPolcodeDeliveryDate();
         $shippingId = $this->getQuote()->getShippingAddress()->getPolcodeShippingId();
-        
+                
         return Mage::helper('polcodeshipping')->getDisplaySelectedDeliveryDateTime( $shippingDate, $shippingId ); 
     }
 }
