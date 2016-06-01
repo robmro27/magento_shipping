@@ -1,6 +1,6 @@
 <?php
 
-class Polcode_Shipping_Model_Resource_ShippingExcludes
+class Polcode_Shipping_Model_Resource_Shippingexcludes
     extends Mage_Core_Model_Resource_Db_Abstract
 {
     protected function _construct() {

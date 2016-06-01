@@ -1,6 +1,6 @@
 <?php
 
-class Polcode_Shipping_Model_Resource_ShippingExcludes_Collection 
+class Polcode_Shipping_Model_Resource_Shippingexcludes_Collection 
     extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     
