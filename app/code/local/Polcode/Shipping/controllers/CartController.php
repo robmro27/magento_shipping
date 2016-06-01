@@ -21,8 +21,11 @@ class Polcode_Shipping_CartController extends Mage_Checkout_CartController {
         
         $estimateMethod = $this->getRequest()->get('estimate_method');
         if ( $estimateMethod == Polcode_Shipping_Model_Carrier::$codeMethod ) {
-            $polcodeShippingDate = $this->getRequest()->get('polcode_delivery_date');
+            
             $polcodeShippingId =  $this->getRequest()->get('polcode_shipping_id');
+            $calendarInterval = Mage::getModel('polcodeshipping/shipping')->load($polcodeShippingId);
+            $polcodeShippingDate = Mage::helper('polcodeshipping')->getDateForNextWeekDay( $calendarInterval['weekday'] );
+            
         } 
         
         $cart = Mage::getModel('checkout/cart')->getQuote();
