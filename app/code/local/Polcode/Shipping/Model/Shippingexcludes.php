@@ -5,7 +5,7 @@
  *
  * @author rmroz
  */
-class Polcode_Shipping_Model_ShippingExcludes
+class Polcode_Shipping_Model_Shippingexcludes
     extends Mage_Core_Model_Abstract
 {
     protected function _construct()
