@@ -5,7 +5,7 @@
  *
  * @author rmroz
  */
-class Polcode_Shipping_Adminhtml_ShippingReportController 
+class Polcode_Shipping_Adminhtml_ShippingreportController 
     extends Mage_Adminhtml_Controller_Action
 {
     

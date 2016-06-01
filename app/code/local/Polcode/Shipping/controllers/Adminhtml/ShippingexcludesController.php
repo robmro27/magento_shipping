@@ -6,7 +6,7 @@
  *
  * @author rmroz
  */
-class Polcode_Shipping_Adminhtml_ShippingExcludesController 
+class Polcode_Shipping_Adminhtml_ShippingexcludesController 
     extends Mage_Adminhtml_Controller_Action
 {
     public function indexAction()
